@@ -135,4 +135,20 @@ function drawCircle(cx, cy, r, color = "#000000") {
  */
 function getPolygonVertices(centerX, centerY, sides, radius) {
     // Desarrollo del estudiante (Uso de Math.sin/Math.cos y retorno de datos)
+     let vertices = [];
+
+    for (let i = 0; i < sides; i++) {
+
+        /**
+        * Ángulo central del polígono en radianes
+        */
+        let angle = (2 * Math.PI * i) / sides;
+
+        let x = centerX + radius * Math.cos(angle);
+        let y = centerY + radius * Math.sin(angle);
+
+        vertices.push({ x, y });
+    }
+
+    return vertices;
 }
