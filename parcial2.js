@@ -126,3 +126,13 @@ function drawCircle(cx, cy, r, color = "#000000") {
         drawSymmetricPoints(cx, cy, x, y);
     }
 }
+/**
+ * Calcula los vértices de un polígono regular.
+ * @param {number} centerX, centerY - Centro
+ * @param {number} sides - Número de lados
+ * @param {number} radius - Radio
+ * @returns {Array} Arreglo de objetos {x, y}
+ */
+function getPolygonVertices(centerX, centerY, sides, radius) {
+    // Desarrollo del estudiante (Uso de Math.sin/Math.cos y retorno de datos)
+}
