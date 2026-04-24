@@ -20,8 +20,11 @@ function drawPixel(ctx, x, y, color = "#000000") {
 }
 /**
  * Implementación del algoritmo de Bresenham para líneas.
- * @param {number} x0, y0 - Coordenadas iniciales
- * @param {number} x1, y1 - Coordenadas finales
+ * Soporta todos los octantes.
+ * @param {number} x0 - Coordenadas iniciales
+ * @param {number} y0 - Coordenadas iniciales
+ * @param {number} x1 - Coordenadas finales
+ * @param {number} y1 - Coordenadas finales
  * @param {string} color - Color
  * @returns {void}
  */
@@ -43,9 +46,14 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
 
     let sx = (x0 < x1) ? 1 : -1;
     let sy = (y0 < y1) ? 1 : -1;
-  /**
+    /**
      * Parámetro de decisión
      * Controla el error acumulado de la recta
+     */
+     /**
+        * dx y dy determinan el octante de la recta.
+        * El algoritmo ajusta dinámicamente los pasos en X y Y
+     * para cubrir todos los casos sin usar pendientes explícitas.
      */
     let err = dx - dy;
      while (true) {
@@ -82,8 +90,10 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
  * @param {string} color - Color
  * @returns {void}
  */
-function drawCircle(cx, cy, r, color = "#000000") {
-
+function drawCircle(cx, cy, r, color = "#6903c9") {
+    cx = Math.round(cx);
+    cy = Math.round(cy);
+    r = Math.round(r);
     // Variables base del algoritmo
     let x = 0;
     let y = r;
@@ -113,7 +123,7 @@ function drawCircle(cx, cy, r, color = "#000000") {
     // Dibujar los puntos iniciales
     drawSymmetricPoints(cx, cy, x, y);
 
-    while (x < y) {
+    while (x <= y) {  
         x++;
 
         /**
@@ -195,11 +205,14 @@ function main() {
     }
 
     // Dibujar circunferencias en cada vértice
-    for (let v of vertices) {
-        drawCircle(v.x, v.y, R / 4);
-    }
+  for (let v of vertices) {
+    drawCircle(
+        Math.round(v.x),
+        Math.round(v.y),
+        Math.round(R / 4)
+    );
 }
-
+}
 /**
  * Ejecutar al cargar la página
  */
