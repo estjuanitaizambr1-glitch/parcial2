@@ -90,5 +90,39 @@ function drawCircle(cx, cy, r, color = "#000000") {
      * Define si el siguiente punto cae dentro o fuera de la circunferencia ideal
      */
     let p = 1 - r;
+    /**
+     * Se dibujan los 8 puntos simétricos
+     * para evitar cálculos redundantes
+     */
+    function drawSymmetricPoints(cx, cy, x, y) {
+        drawPixel(ctx, cx + x, cy + y, color);
+        drawPixel(ctx, cx - x, cy + y, color);
+        drawPixel(ctx, cx + x, cy - y, color);
+        drawPixel(ctx, cx - x, cy - y, color);
+        drawPixel(ctx, cx + y, cy + x, color);
+        drawPixel(ctx, cx - y, cy + x, color);
+        drawPixel(ctx, cx + y, cy - x, color);
+        drawPixel(ctx, cx - y, cy - x, color);
+    }
 
+    // Dibujar los puntos iniciales
+    drawSymmetricPoints(cx, cy, x, y);
+
+    while (x < y) {
+        x++;
+
+        /**
+         * Actualización del parámetro de decisión:
+         * Caso 1: p < 0 → se elige el punto Este
+         * Caso 2: p >= 0 → se elige el punto Sureste
+         */
+        if (p < 0) {
+            p += 2 * x + 1;
+        } else {
+            y--;
+            p += 2 * (x - y) + 1;
+        }
+
+        drawSymmetricPoints(cx, cy, x, y);
+    }
 }
