@@ -27,6 +27,11 @@ function drawPixel(ctx, x, y, color = "#000000") {
  */
 function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
 
+    x0 = Math.round(x0);
+    y0 = Math.round(y0);
+    x1 = Math.round(x1);
+    y1 = Math.round(y1);
+
     // Caso especial: un solo punto
     if (x0 === x1 && y0 === y1) {
         drawPixel(ctx, x0, y0, color);
@@ -158,3 +163,44 @@ function getPolygonVertices(centerX, centerY, sides, radius) {
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+/**
+ * Función principal:
+ * - Genera un polígono regular aleatorio
+ * - Dibuja sus lados con Bresenham
+ * - Dibuja circunferencias en cada vértice
+ * @returns {void}
+ */
+function main() {
+
+    // Número de lados entre 5 y 10
+    let sides = getRandomInt(5, 10);
+
+    // Centro del canvas
+    let centerX = canvas.width / 2;
+    let centerY = canvas.height / 2;
+
+    // Radio del polígono
+    let R = 150;
+
+    // Obtener vértices
+    let vertices = getPolygonVertices(centerX, centerY, sides, R);
+
+    // Dibujar lados del polígono
+    for (let i = 0; i < vertices.length; i++) {
+        let current = vertices[i];
+        let next = vertices[(i + 1) % vertices.length];
+
+        bresenhamLine(current.x, current.y, next.x, next.y);
+    }
+
+    // Dibujar circunferencias en cada vértice
+    for (let v of vertices) {
+        drawCircle(v.x, v.y, R / 4);
+    }
+}
+
+/**
+ * Ejecutar al cargar la página
+ */
+window.onload = main;
