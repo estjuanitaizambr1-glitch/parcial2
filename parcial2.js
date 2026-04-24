@@ -32,6 +32,33 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
 
     let sx = (x0 < x1) ? 1 : -1;
     let sy = (y0 < y1) ? 1 : -1;
-
+  /**
+     * Parámetro de decisión
+     * Controla el error acumulado de la recta
+     */
     let err = dx - dy;
+     while (true) {
+
+        drawPixel(ctx, x0, y0, color);
+
+        if (x0 === x1 && y0 === y1) break;
+
+        let e2 = 2 * err;
+
+        /**
+         * Ajuste en X
+         */
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+
+        /**
+         * Ajuste en Y
+         */
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
+    }
 }
