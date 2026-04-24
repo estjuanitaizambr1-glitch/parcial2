@@ -27,6 +27,12 @@ function drawPixel(ctx, x, y, color = "#000000") {
  */
 function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
 
+    // Caso especial: un solo punto
+    if (x0 === x1 && y0 === y1) {
+        drawPixel(ctx, x0, y0, color);
+        return;
+    }
+
     let dx = Math.abs(x1 - x0);
     let dy = Math.abs(y1 - y0);
 
@@ -61,4 +67,28 @@ function bresenhamLine(x0, y0, x1, y1, color = "#000000") {
             y0 += sy;
         }
     }
+}
+/**
+ * Dibuja una circunferencia usando el algoritmo de punto medio.
+ * (Definición inicial de la función)
+ * @param {number} cx - Centro X
+ * @param {number} cy - Centro Y
+ * @param {number} r - Radio
+ * @param {string} color - Color
+ * @returns {void}
+ */
+function drawCircle(cx, cy, r, color = "#000000") {
+
+    // Variables base del algoritmo
+    let x = 0;
+    let y = r;
+
+    /**
+     * Parámetro de decisión inicial:
+     *  * p < 0 → el punto medio está dentro del círculo
+     * p >= 0 → el punto medio está fuera
+     * Define si el siguiente punto cae dentro o fuera de la circunferencia ideal
+     */
+    let p = 1 - r;
+
 }
